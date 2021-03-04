@@ -13,6 +13,7 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'active_record'
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -98,3 +99,8 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+def db_configuration
+  db_configuration_file = File.join(File.expand_path('..', __FILE__), '..', 'db', 'config.yml')
+  YAML.load(File.read(db_configuration_file))
+end
+ActiveRecord::Base.establish_connection(db_configuration["test"])
