@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_033759) do
+ActiveRecord::Schema.define(version: 2021_03_04_041056) do
+
+  create_table "entries", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "project_tag_id"
+    t.boolean "on", null: false
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_entries_on_project_id"
+    t.index ["project_tag_id"], name: "index_entries_on_project_tag_id"
+  end
 
   create_table "project_tags", force: :cascade do |t|
     t.integer "project_id"
@@ -33,6 +44,8 @@ ActiveRecord::Schema.define(version: 2021_03_04_033759) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "entries", "project_tags"
+  add_foreign_key "entries", "projects"
   add_foreign_key "project_tags", "projects"
   add_foreign_key "project_tags", "tags"
 end
