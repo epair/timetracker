@@ -1,7 +1,7 @@
 require 'spec_helper'
-require_relative '../lib/models/entry'
-require_relative '../lib/models/tag'
-require_relative '../lib/models/project_tag'
+require_relative '../../lib/models/entry'
+require_relative '../../lib/models/tag'
+require_relative '../../lib/models/project_tag'
 
 RSpec.describe Entry do
   context 'is required to belong to a project and have a status' do

@@ -1,6 +1,6 @@
 require 'spec_helper'
-require_relative '../lib/models/tag'
-require_relative '../lib/models/project_tag'
+require_relative '../../lib/models/tag'
+require_relative '../../lib/models/project_tag'
 
 RSpec.describe Tag do
   context 'has a required name field' do
