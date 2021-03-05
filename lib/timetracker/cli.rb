@@ -7,6 +7,7 @@ module Timetracker
   class CLI < Thor
     desc "start PROJECT", "Starts tracking work for given project"
     def start(project_name)
+      ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: '../../db/test.sqlite3')
       puts "Starting work on #{project_name}"
 
       project = Project.create(name: "#{project_name}")
