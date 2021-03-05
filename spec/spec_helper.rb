@@ -1,5 +1,6 @@
 
 require 'database_cleaner-active_record'
+require 'aruba/rspec'
 ENV['TIMETRACKER_ENV']="test"
 
 RSpec.configure do |config|
