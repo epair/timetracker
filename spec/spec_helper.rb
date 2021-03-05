@@ -1,5 +1,6 @@
 
 require 'database_cleaner-active_record'
+ENV['TIMETRACKER_ENV']="test"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
