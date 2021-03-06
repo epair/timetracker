@@ -2,6 +2,7 @@ require 'spec_helper'
 
 RSpec.describe 'timetracker start myproject', :type => :aruba do
   before { run_command('timetracker start myproject @tag') }
+
   let(:project) { Project.find_by(name: 'myproject') }
   let(:tag) { Tag.find_by(name: '@tag') }
   let(:entry) { project.entries.last }
