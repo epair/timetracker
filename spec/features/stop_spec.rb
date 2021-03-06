@@ -9,6 +9,6 @@ RSpec.describe 'timetracker stop myproject', :type => :aruba do
   context "creates an entry for the project with on set to true" do
     let(:project) { Project.find_by(name: 'myproject')}
 
-    it { expect(project.entries.where(on: false).empty?).to be_falsey }
+    it { expect(project.entries.where(status: :start).empty?).to be_falsey }
   end
 end

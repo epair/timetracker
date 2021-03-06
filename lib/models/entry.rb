@@ -5,10 +5,8 @@ class Entry < ActiveRecord::Base
   has_many :entry_tags
   has_many :tags, through: :entry_tags
 
-  validates_inclusion_of :on, in: [true, false]
-  validates :project_id, presence: true
+  enum status: [ :start, :stop, :notes ]
 
-  def tags
-    project_tags
-  end
+  validates :status, presence: true
+  validates :project_id, presence: true
 end
