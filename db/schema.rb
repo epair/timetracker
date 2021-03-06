@@ -10,26 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_041056) do
+ActiveRecord::Schema.define(version: 2021_03_06_194441) do
 
   create_table "entries", force: :cascade do |t|
     t.integer "project_id", null: false
-    t.integer "project_tag_id"
     t.boolean "on", null: false
     t.text "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_entries_on_project_id"
-    t.index ["project_tag_id"], name: "index_entries_on_project_tag_id"
   end
 
-  create_table "project_tags", force: :cascade do |t|
-    t.integer "project_id"
+  create_table "entry_tags", force: :cascade do |t|
+    t.integer "entry_id"
     t.integer "tag_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_project_tags_on_project_id"
-    t.index ["tag_id"], name: "index_project_tags_on_tag_id"
+    t.index ["entry_id"], name: "index_entry_tags_on_entry_id"
+    t.index ["tag_id"], name: "index_entry_tags_on_tag_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -39,13 +37,15 @@ ActiveRecord::Schema.define(version: 2021_03_04_041056) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name", null: false
+    t.integer "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.index ["project_id"], name: "index_tags_on_project_id"
   end
 
-  add_foreign_key "entries", "project_tags"
   add_foreign_key "entries", "projects"
-  add_foreign_key "project_tags", "projects"
-  add_foreign_key "project_tags", "tags"
+  add_foreign_key "entry_tags", "entries"
+  add_foreign_key "entry_tags", "tags"
+  add_foreign_key "tags", "projects"
 end

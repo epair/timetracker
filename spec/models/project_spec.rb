@@ -1,6 +1,6 @@
 require 'spec_helper'
 require_relative '../../lib/models/project'
-require_relative '../../lib/models/project_tag'
+require_relative '../../lib/models/tag'
 
 RSpec.describe Project do
   context 'has a required name field' do
@@ -23,8 +23,7 @@ RSpec.describe Project do
   context 'has_many tags through project_tags' do
     it 'returns an array of tags' do
       project = Project.create(name: 'timetracker')
-      tag = Tag.create(name: 'testing')
-      project_tag = ProjectTag.create(project: project, tag: tag)
+      tag = Tag.create(name: 'testing', project: project)
 
       expect(project.tags.first).to eq(tag)
     end
