@@ -8,6 +8,7 @@ gem 'thor', '~> 1.1.0'
 group :test do
   gem 'aruba', '~> 1.0.4'
   gem 'database_cleaner-active_record', '~> 2.0.0'
+  gem 'factory_bot', '~> 6.1.0'
   gem 'rspec', '~> 3.0'
   gem 'pry'
   gem 'pry-remote'

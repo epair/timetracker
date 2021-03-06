@@ -3,29 +3,29 @@ require_relative '../../lib/models/entry'
 require_relative '../../lib/models/tag'
 
 RSpec.describe Entry do
-  context 'is required to belong to a project and have a status' do
-    it 'saves an entry with a valid project and status' do
-      project = Project.create(name: 'timetracker')
-      entry = Entry.new(project: project, status: :start)
-      expect(entry.save).to be_truthy
+  describe '.create' do
+    it 'creates an entry' do
+      entry = FactoryBot.create(:entry, :start)
+      expect(entry).to be_valid
     end
 
-    it 'rejects an entry with no project' do
-      entry = Entry.new(project: nil, status: :start)
-      expect(entry.save).to be_falsey
+    context 'with no project' do
+      it 'rejects an entry' do
+        entry = FactoryBot.build(:entry, :start, project: nil)
+        expect(entry).to be_invalid
+      end
     end
 
-    it 'rejects an entry with no status update' do
-      project = Project.create(name: 'timetracker')
-      entry = Entry.new(project: project)
-      expect(entry.save).to be_falsey
+    context 'with no status' do
+      it 'rejects an entry' do
+        entry = FactoryBot.build(:entry)
+        expect(entry).to be_invalid
+      end
     end
-  end
 
-  it 'optionally contains notes' do
-      project = Project.create(name: 'timetracker')
-      entry = Entry.new(project: project, status: :start, notes: 'working on entry spec')
-
-      expect(entry.save).to be_truthy
+    it 'optionally contains notes' do
+      entry = FactoryBot.create(:entry, :start, notes: 'some notes')
+      expect(entry).to be_valid
+    end
   end
 end

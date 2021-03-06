@@ -1,6 +1,7 @@
 
-require 'database_cleaner-active_record'
 require 'aruba/rspec'
+require 'database_cleaner-active_record'
+require 'factory_bot'
 ENV['TIMETRACKER_ENV']="test"
 
 RSpec.configure do |config|
@@ -43,5 +44,11 @@ RSpec.configure do |config|
     DatabaseCleaner.cleaning do
       example.run
     end
+  end
+
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
   end
 end
