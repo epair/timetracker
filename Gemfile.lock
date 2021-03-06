@@ -128,6 +128,12 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
+    shoulda (4.0.0)
+      shoulda-context (~> 2.0)
+      shoulda-matchers (~> 4.0)
+    shoulda-context (2.0.0)
+    shoulda-matchers (4.5.1)
+      activesupport (>= 4.2.0)
     slop (3.6.0)
     sqlite3 (1.4.2)
     standalone_migrations (6.0.0)
@@ -153,6 +159,7 @@ DEPENDENCIES
   pry
   pry-remote
   rspec (~> 3.0)
+  shoulda (~> 4.0)
   sqlite3 (~> 1.4.2)
   standalone_migrations (~> 6.0.0)
   thor (~> 1.1.0)

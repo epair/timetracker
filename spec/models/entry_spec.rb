@@ -2,7 +2,17 @@ require 'spec_helper'
 require_relative '../../lib/models/entry'
 require_relative '../../lib/models/tag'
 
-RSpec.describe Entry do
+RSpec.describe Entry, type: :model do
+  describe 'associations' do
+    it { should belong_to(:project) }
+    it { should have_many(:entry_tags) }
+  end
+
+  describe 'validations' do
+    it { should validate_presence_of(:project_id) }
+    it { should validate_presence_of(:status) }
+  end
+
   describe '.create' do
     it 'creates an entry' do
       entry = FactoryBot.create(:entry, :start)
