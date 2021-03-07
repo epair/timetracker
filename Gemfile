@@ -10,9 +10,10 @@ group :test do
   gem 'cucumber', '~> 5.3.0'
   gem 'database_cleaner-active_record', '~> 2.0.0'
   gem 'factory_bot', '~> 6.1.0'
-  gem 'pry'
-  gem 'pry-remote'
+  gem 'pry', require: false
+  gem 'pry-remote', require: false
   gem 'rspec', '~> 3.0'
   gem 'shoulda', '~> 4.0'
+  gem 'simplecov', require: false
   gem 'timecop', '~> 0.9.4'
 end

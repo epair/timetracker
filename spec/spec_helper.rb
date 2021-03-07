@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'aruba/rspec'
 require 'database_cleaner-active_record'
 require 'factory_bot'
