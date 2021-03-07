@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :project do
-    name { "timetracker" }
+    name { 'timetracker' }
   end
 end

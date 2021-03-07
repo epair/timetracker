@@ -2,5 +2,4 @@
 
 module Timetracker
   class Error < StandardError; end
-
 end

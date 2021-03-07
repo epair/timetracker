@@ -1,9 +1,8 @@
-
 require 'aruba/rspec'
 require 'database_cleaner-active_record'
 require 'factory_bot'
 require 'shoulda'
-ENV['TIMETRACKER_ENV']="test"
+ENV['TIMETRACKER_ENV'] = 'test'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -41,7 +40,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.around(:each) do |example|
+  config.around do |example|
     DatabaseCleaner.cleaning do
       example.run
     end

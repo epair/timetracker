@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'activerecord', '~> 6.0.3'
-gem 'standalone_migrations', '~> 6.0.0'
 gem 'sqlite3', '~> 1.4.2'
+gem 'standalone_migrations', '~> 6.0.0'
 gem 'thor', '~> 1.1.0'
 
 group :test do

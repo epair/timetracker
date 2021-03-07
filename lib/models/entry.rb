@@ -5,7 +5,7 @@ class Entry < ActiveRecord::Base
   has_many :entry_tags
   has_many :tags, through: :entry_tags
 
-  enum status: [ :start, :stop, :notes ]
+  enum status: %i[start stop notes]
 
   validates :status, presence: true
   validates :project_id, presence: true
