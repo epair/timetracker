@@ -5,6 +5,8 @@ require 'aruba/rspec'
 require 'database_cleaner-active_record'
 require 'factory_bot'
 require 'shoulda'
+
+require_relative '../lib/support/active_record_connector'
 ENV['TIMETRACKER_ENV'] = 'test'
 
 RSpec.configure do |config|

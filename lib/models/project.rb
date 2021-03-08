@@ -1,4 +1,4 @@
-require_relative '../support/active_record_connector'
+require 'active_record'
 
 class Project < ActiveRecord::Base
   has_many :tags

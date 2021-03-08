@@ -1,4 +1,4 @@
-require_relative '../support/active_record_connector'
+require 'active_record'
 
 class Entry < ActiveRecord::Base
   belongs_to :project

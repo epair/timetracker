@@ -1,5 +1,4 @@
 require 'thor'
-require_relative '../support/active_record_connector'
 require_relative '../models/project'
 require_relative '../models/entry'
 require_relative '../models/tag'
