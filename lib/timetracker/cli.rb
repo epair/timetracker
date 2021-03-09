@@ -34,5 +34,12 @@ module Timetracker
       projects = Project.all.map(&:name)
       puts projects.join('\n')
     end
+
+    desc 'tags', 'Lists all tags'
+    def tags
+      ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: '../../db/test.sqlite3') unless ActiveRecord::Base.connected?
+      tags = Tag.all.map(&:name).uniq
+      puts tags.join('\n')
+    end
   end
 end
