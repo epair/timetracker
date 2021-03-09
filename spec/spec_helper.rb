@@ -6,8 +6,8 @@ require 'database_cleaner-active_record'
 require 'factory_bot'
 require 'shoulda'
 
-require_relative '../lib/support/active_record_connector'
 ENV['TIMETRACKER_ENV'] = 'test'
+require_relative '../lib/support/active_record_connector'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

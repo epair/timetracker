@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require_relative '../lib/support/active_record_connector'
 require_relative '../lib/timetracker/cli'
 
 Timetracker::CLI.start
