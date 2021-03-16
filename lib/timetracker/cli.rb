@@ -15,7 +15,11 @@ module Timetracker
         tag = Tag.find_or_create_by(name: name, project: project)
         EntryTag.create(tag: tag, entry: entry)
       end
-      puts "Starting work on #{project_name} [#{tags.join(', ')}] at #{entry.created_at.localtime.strftime('%I:%M%p')}"
+      if tags.empty?
+        puts "Starting work on #{project_name} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
+      else
+        puts "Starting work on #{project_name} [#{tags.join(', ')}] at #{entry.created_at.localtime.strftime('%I:%M%p')}"
+      end
     end
 
     desc 'stop PROJECT', 'Stops tracking work for given project'
