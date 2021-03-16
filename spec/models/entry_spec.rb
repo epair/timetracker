@@ -9,7 +9,6 @@ RSpec.describe Entry, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:project_id) }
     it { is_expected.to validate_presence_of(:status) }
   end
 end

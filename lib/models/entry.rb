@@ -8,5 +8,4 @@ class Entry < ActiveRecord::Base
   enum status: %i[start stop notes]
 
   validates :status, presence: true
-  validates :project_id, presence: true
 end
