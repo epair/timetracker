@@ -18,11 +18,21 @@ module Timetracker
     end
 
     desc 'stop PROJECT', 'Stops tracking work for given project'
-    def stop(project_name)
-      puts "Stopping work on #{project_name}"
+    def stop(*args)
+      tag_name, details = args.partition { |element| element.to_s.start_with?('@') }
+      project_name = details.first
 
-      project = Project.find_by(name: project_name.to_s)
-      Entry.create(project: project, status: :stop)
+      if project_name.nil?
+        tag = Tag.find_by(name: tag_name)
+        entry = Entry.create(status: :stop)
+        EntryTag.create(tag: tag, entry: entry)
+        puts "Stopping work on #{tag_name.first}, continuing work on #{tag.project.name}"
+      else
+        project = Project.find_by(name: project_name.to_s)
+        Entry.create(project: project, status: :stop)
+        puts "Stopping work on #{project_name}"
+      end
+
     end
 
     desc 'projects', 'Lists all projects'
