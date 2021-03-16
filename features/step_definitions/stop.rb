@@ -7,6 +7,12 @@ Given("I've starting tracking for {string} {string}") do |string, string2|
   FactoryBot.create(:tag, name: string2, project: project)
 end
 
+Given("I've starting tracking for {string} {string} {string}") do |string, string2, string3|
+  project = FactoryBot.create(:project, name: string)
+  FactoryBot.create(:tag, name: string2, project: project)
+  FactoryBot.create(:tag, name: string3, project: project)
+end
+
 Then('creates an entry with a project with a stop status') do
   project = Project.find_by(name: 'myproject')
   entry = project.entries.last
