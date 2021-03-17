@@ -20,3 +20,10 @@ Feature: Stop
     When I run `timetracker stop @testing @pairing`
     Then the output should contain "Stopping work on [@testing, @pairing], continuing work on myproject"
     And creates an entry with a tag with a stop status
+
+  @in-process
+  Scenario: Run stop command with multiple tags and notes
+    Given I've starting tracking for "myproject" "@testing" "@pairing"
+    When I run `timetracker stop @testing @pairing finished helping`
+    Then the output should contain "Stopping work on [@testing, @pairing], continuing work on myproject"
+    And creates an entry with a tag with a stop status and notes

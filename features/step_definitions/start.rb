@@ -20,3 +20,11 @@ Then('creates an entry tag called @pairing') do
 
   expect(entry.tags).to include(tag)
 end
+
+Then('creates an entry with a start status and notes') do
+  project = Project.find_by(name: 'myproject')
+  entry = project.entries.last
+
+  expect(entry.status).to eq('start')
+  expect(entry.notes).to eq('working with Emmett')
+end

@@ -26,3 +26,11 @@ Then('creates an entry with a tag with a stop status') do
 
   expect(entry.status).to eq('stop')
 end
+
+Then('creates an entry with a tag with a stop status and notes') do
+  tag = Tag.find_by(name: '@testing')
+  entry = tag.entries.last
+
+  expect(entry.status).to eq('stop')
+  expect(entry.notes).to eq('finished helping')
+end

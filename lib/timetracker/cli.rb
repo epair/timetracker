@@ -9,8 +9,8 @@ module Timetracker
     desc 'start PROJECT', 'Starts tracking work for given project'
     def start(project_name, *args)
       project = Project.find_or_create_by(name: project_name.to_s)
-      entry = Entry.create(project: project, status: :start)
-      tags = args.keep_if { |element| element.to_s.start_with?('@') }
+      tags, notes = args.partition { |element| element.to_s.start_with?('@') }
+      entry = Entry.create(project: project, status: :start, notes: notes.join(" "))
       tags.each do |name|
         tag = Tag.find_or_create_by(name: name, project: project)
         EntryTag.create(tag: tag, entry: entry)
@@ -24,29 +24,28 @@ module Timetracker
 
     desc 'stop PROJECT', 'Stops tracking work for given project'
     def stop(*args)
-      tag_names, details = args.partition { |element| element.to_s.start_with?('@') }
-      project_name = details.first
-
-      if project_name.nil?
+      if args.first.start_with?('@')
+        tag_names, notes = args.partition { |element| element.to_s.start_with?('@') }
         if tag_names.count == 1
           tag = Tag.find_by(name: tag_names)
-          entry = Entry.create(status: :stop)
+          entry = Entry.create(status: :stop, notes: notes.join(' '))
           EntryTag.create(tag: tag, entry: entry)
           puts "Stopping work on #{tag_names.first}, continuing work on #{tag.project.name}"
         else
           tags = Tag.where(name: tag_names)
-          entry = Entry.create(status: :stop)
+          entry = Entry.create(status: :stop,  notes: notes.join(' '))
           tags.each do |tag|
             EntryTag.create(tag: tag, entry: entry)
           end
           puts "Stopping work on [#{tag_names.join(', ')}], continuing work on #{tags.first.project.name}"
         end
       else
+        project_name = args.shift
+        tag_names, notes = args.partition { |element| element.to_s.start_with?('@') }
         project = Project.find_by(name: project_name.to_s)
-        Entry.create(project: project, status: :stop)
+        Entry.create(project: project, status: :stop, notes: notes.join(' '))
         puts "Stopping work on #{project_name}"
       end
-
     end
 
     desc 'projects', 'Lists all projects'
