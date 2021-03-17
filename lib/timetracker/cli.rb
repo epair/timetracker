@@ -1,6 +1,5 @@
 require 'thor'
 require 'csv'
-require 'pry'
 require_relative '../models/project'
 require_relative '../models/entry'
 require_relative '../models/tag'
@@ -16,11 +15,7 @@ module Timetracker
         tag = Tag.find_or_create_by(name: name, project: project)
         EntryTag.create(tag: tag, entry: entry)
       end
-      if tags.empty?
-        puts "Starting work on #{project_name} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
-      else
-        puts "Starting work on #{project_name} [#{tags.join(', ')}] at #{entry.created_at.localtime.strftime('%I:%M%p')}"
-      end
+      puts "Starting work on #{([project_name] + tags).join(', ')} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
     end
 
     desc 'stop PROJECT', 'Stops tracking work for given project'
@@ -38,7 +33,7 @@ module Timetracker
           tags.each do |tag|
             EntryTag.create(tag: tag, entry: entry)
           end
-          puts "Stopping work on [#{tag_names.join(', ')}], continuing work on #{tags.first.project.name}"
+          puts "Stopping work on #{tag_names.join(', ')}, continuing work on #{tags.first.project.name}"
         end
       else
         project_name = args.shift
