@@ -9,28 +9,15 @@ require_relative '../models/tag'
 module Timetracker
   class CLI < Thor
     desc 'start PROJECT', 'Starts tracking work for given project'
-    def start(project_name, *args)
-      entry = StartEntry.create(project_name, args)
-      puts "Starting work on #{([project_name] + entry.tags.map(&:name)).join(', ')} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
+    def start(*args)
+      entry = StartEntry.create(args)
+      puts "Starting work on #{([entry.project.name] + entry.tags.map(&:name)).join(', ')} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
     end
 
     desc 'stop PROJECT', 'Stops tracking work for given project'
     def stop(*args)
       if args.first.start_with?('@')
-        tag_names, notes = args.partition { |element| element.to_s.start_with?('@') }
-        if tag_names.count == 1
-          tag = Tag.find_by(name: tag_names)
-          entry = Entry.create(status: :stop, notes: notes.join(' '))
-          EntryTag.create(tag: tag, entry: entry)
-          puts "Stopping work on #{tag_names.first}, continuing work on #{tag.project.name}"
-        else
-          tags = Tag.where(name: tag_names)
-          entry = Entry.create(status: :stop,  notes: notes.join(' '))
-          tags.each do |tag|
-            EntryTag.create(tag: tag, entry: entry)
-          end
-          puts "Stopping work on #{tag_names.join(', ')}, continuing work on #{tags.first.project.name}"
-        end
+        TagStopEntry.create(args)
       else
         project_name = args.shift
         tag_names, notes = args.partition { |element| element.to_s.start_with?('@') }
