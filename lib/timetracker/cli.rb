@@ -1,4 +1,5 @@
 require 'thor'
+require 'csv'
 require 'pry'
 require_relative '../models/project'
 require_relative '../models/entry'
@@ -58,6 +59,17 @@ module Timetracker
     def tags
       tags = Tag.all.map(&:name).uniq
       puts tags.join('\n')
+    end
+
+    desc 'export', 'Exports data as csv'
+    def export
+      puts 'Exporting data as CSV'
+      CSV.open("timetracker_data.csv", "wb") do |csv|
+        csv << ['created_at', 'status', 'project', 'tags', 'notes']
+        Entry.find_each do |entry|
+          csv << [entry.created_at, entry.status, entry.project.name, entry.tags.map(&:name).join(", "), entry.notes]
+        end
+      end
     end
   end
 end
