@@ -1,5 +1,7 @@
 require 'thor'
 require 'csv'
+require 'pry'
+require_relative '../concerns/entries'
 require_relative '../models/project'
 require_relative '../models/entry'
 require_relative '../models/tag'
@@ -8,14 +10,8 @@ module Timetracker
   class CLI < Thor
     desc 'start PROJECT', 'Starts tracking work for given project'
     def start(project_name, *args)
-      project = Project.find_or_create_by(name: project_name.to_s)
-      tags, notes = args.partition { |element| element.to_s.start_with?('@') }
-      entry = Entry.create(project: project, status: :start, notes: notes.join(" "))
-      tags.each do |name|
-        tag = Tag.find_or_create_by(name: name, project: project)
-        EntryTag.create(tag: tag, entry: entry)
-      end
-      puts "Starting work on #{([project_name] + tags).join(', ')} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
+      entry = StartEntry.create(project_name, args)
+      puts "Starting work on #{([project_name] + entry.tags.map(&:name)).join(', ')} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
     end
 
     desc 'stop PROJECT', 'Stops tracking work for given project'
