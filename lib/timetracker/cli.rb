@@ -10,8 +10,7 @@ module Timetracker
   class CLI < Thor
     desc 'start PROJECT', 'Starts tracking work for given project'
     def start(*args)
-      entry = StartEntry.create(args)
-      puts "Starting work on #{([entry.project.name] + entry.tags.map(&:name)).join(', ')} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
+      StartEntry.create(args)
     end
 
     desc 'stop PROJECT', 'Stops tracking work for given project'

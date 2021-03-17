@@ -9,7 +9,7 @@ class StartEntry
       tag = Tag.find_or_create_by(name: name, project: project)
       EntryTag.create(tag: tag, entry: entry)
     end
-    entry
+    puts "Starting work on #{([entry.project.name] + entry.tags.map(&:name)).join(', ')} at #{entry.created_at.localtime.strftime('%I:%M%p')}"
   end
 end
 
